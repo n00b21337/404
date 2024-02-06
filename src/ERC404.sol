@@ -287,6 +287,9 @@ abstract contract ERC404 is Ownable {
         }
     }
 
+
+
+
     /// @notice Function for native transfers with contract support and callback data
     function safeTransferFrom(
         address from,

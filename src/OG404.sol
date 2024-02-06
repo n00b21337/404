@@ -5,7 +5,8 @@ import "./ERC404.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract OG404 is ERC404 {
-    string public dataURI;
+    string public dataURI =
+        "https://raw.githubusercontent.com/0xacme/pandora/main/";
     string public baseTokenURI;
 
     constructor(address _owner) ERC404("OuGis", "OG", 18, 10000, _owner) {
