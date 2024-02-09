@@ -3,16 +3,22 @@ src = "src"
 out = "out"
 libs = ["lib"]
 sender = '0xF44D804DCf86Da1236B58e4F48B5b004B19b1695'
+gas_reports = ["*"]
+
 
 [rpc_endpoints]
 sepolia = "${SEPOLIA_RPC_URL}"
 goerli = "${GOERLI_RPC_URL}"
+arbitrum = "${ARBITRUM_RPC_URL}"
+eth = "${ETH_RPC_URL}"
 
 
 
 [etherscan]
 sepolia = { key = "${ETHERSCAN_API_KEY}" }
 goerli = { key = "${ETHERSCAN_API_KEY}" }
+arbitrum = { key = "${ARBISCAN_KEY}" }
+eth = { key = "${ETHERSCAN_API_KEY}" }
 
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

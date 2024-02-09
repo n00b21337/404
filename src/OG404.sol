@@ -9,7 +9,7 @@ contract OG404 is ERC404 {
         "https://raw.githubusercontent.com/0xacme/pandora/main/";
     string public baseTokenURI;
 
-    constructor(address _owner) ERC404("OuGis", "OG", 18, 10000, _owner) {
+    constructor(address _owner) ERC404("OG404", "OG", 18, 10000, _owner) {
         balanceOf[_owner] = 10000 * 10 ** 18;
     }
 
