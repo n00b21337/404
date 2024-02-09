@@ -10,8 +10,18 @@ This standard is entirely experimental and unaudited, while testing has been con
 
 The ERC721 implementation here is a bit non-standard, where tokens are instead burned and minted repeatedly as per underlying / fractional transfers. This is a aspect of the concept's design is deliberate, with the goal of creating an NFT that has native fractionalization, liquidity and encourages some aspects of trading / engagement to farm unique trait sets.
 
-## Licensing
+## Setup
 
-This source code is unlicensed, and free for anyone to use as they please. Any effort to improve source or explore the concept further is encouraged!
+You need to whitelist owner of the smart contract as well as the uniswap contract created by factory below
 
-ALso check this https://github.com/Pandora-Labs-Org/erc404?tab=readme-ov-file
+## Uniswap V3
+
+To predict the address of your Uniswap V3 Pool, use the following simulator: https://dashboard.tenderly.co/shared/simulation/92dadba3-92c3-46a2-9ccc-c793cac6c33d.
+
+To use:
+
+Click Re-Simulate in the top right corner.
+Update the simulation parameters: tokenA (your token address), tokenB (typically WETH, or 0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2), and set the fee tier to either 500, 3000 (for 0.3%), or 10000 (for 1%).
+Run Simulate, and then expand the Input/Output section. The output on the right column will show the derived pool address.
+
+Also check this https://github.com/Pandora-Labs-Org/erc404?tab=readme-ov-file
