@@ -1,0 +1,3 @@
+forge verify-contract --etherscan-api-key PA9PWYZBSKYHDIRYZBVSJZIIBYZ3EVIIUP --chain 42161 0x96317c68482B182ef2Da930BD827C4705c67C92f src/OG404.sol:OG404
+
+forge script script/deploy.sol:DeployContract --rpc-url $ARBITRUM_RPC_URL --broadcast --verify -vv --legacy 
