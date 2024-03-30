@@ -2,7 +2,7 @@
 src = "src"
 out = "out"
 libs = ["lib"]
-sender = '0xB1620c0547744DeDD30F40a863c09D1964532F8C'
+sender = '0x59e8dc17aed975978c8CCb22Ff69fC8954974359'
 gas_reports = ["*"]
 # solc = "0.8.19"
 
@@ -13,6 +13,7 @@ goerli = "${GOERLI_RPC_URL}"
 arbitrum = "${ARBITRUM_RPC_URL}"
 base = "${BASE_RPC_URL}"
 eth = "${ETH_RPC_URL}"
+degen = "${DEGEN_RPC_URL}"
 
 [etherscan]
 sepolia = { key = "${ETHERSCAN_API_KEY}" }
