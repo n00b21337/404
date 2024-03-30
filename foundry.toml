@@ -5,6 +5,8 @@ libs = ["lib"]
 sender = '0x59e8dc17aed975978c8CCb22Ff69fC8954974359'
 gas_reports = ["*"]
 # solc = "0.8.19"
+fs_permissions = [{ access = "read", path = "./broadcast" }]
+
 
 
 [rpc_endpoints]
