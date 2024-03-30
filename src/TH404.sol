@@ -5,9 +5,8 @@ import "./ERC404.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract TopHat404 is ERC404 {
-    string public dataURI =
+    string public baseTokenURI =
         "https://ipfs.io/ipfs/QmVjZW1f4X1nibQeBWQkg5yEfcZdg8CJ73mHwDMbx93CoX";
-    string public baseTokenURI;
 
     constructor(address _owner) ERC404("TOP HAT 404", "TH", 18, 10000, _owner) {
         balanceOf[_owner] = 10000 * 10 ** 18;

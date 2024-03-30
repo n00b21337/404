@@ -1,4 +1,8 @@
 forge verify-contract --etherscan-api-key PA9PWYZBSKYHDIRYZBVSJZIIBYZ3EVIIUP --chain 42161 0x96317c68482B182ef2Da930BD827C4705c67C92f src/OG404.sol:OG404
 
+forge verify-contract --etherscan-api-key 1T2VGSN6VV8Z5Q7FI9QNGB9FXW5SH39DU9 --chain 666666666 0xEF420e6eE54716757119f28067BD7D3508c445f9 src/TH404.sol:TopHat404
+
 #only for arbitrum we have this legacy
 forge script script/deploy.sol:DeployContract --rpc-url $ARBITRUM_RPC_URL --broadcast --verify -vv --legacy 
+
+forge verify-contract --verifier blockscout --verifier-url https://explorer.degen.tips/api  --chain 666666666 0xc5D38Bcc8E0B8a7C61bef5b1cc8945118a0Fd712  src/TH404.sol:TopHat404

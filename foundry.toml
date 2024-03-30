@@ -9,7 +9,6 @@ gas_reports = ["*"]
 
 [rpc_endpoints]
 sepolia = "${SEPOLIA_RPC_URL}"
-goerli = "${GOERLI_RPC_URL}"
 arbitrum = "${ARBITRUM_RPC_URL}"
 base = "${BASE_RPC_URL}"
 eth = "${ETH_RPC_URL}"
@@ -17,7 +16,6 @@ degen = "${DEGEN_RPC_URL}"
 
 [etherscan]
 sepolia = { key = "${ETHERSCAN_API_KEY}" }
-goerli = { key = "${ETHERSCAN_API_KEY}" }
 arbitrum = { key = "${ARBISCAN_API_KEY}" }
 base = { key = "${BASE_KEY}" }
 eth = { key = "${ETHERSCAN_API_KEY}" }
