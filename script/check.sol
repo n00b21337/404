@@ -14,10 +14,10 @@ interface ITH404 {
 }
 
 contract CheckScript is Script {
-    function run() external returns (Tx1559 memory) {
+    function run() external {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
         vm.startBroadcast(deployerPrivateKey);
-        ITH404 th = ITH404(0xc5D38Bcc8E0B8a7C61bef5b1cc8945118a0Fd712);
+        ITH404 th = ITH404(vm.envAddress("CONTRACT_ADDY"));
         string memory symbol = th.symbol();
         console.logString(symbol);
 
