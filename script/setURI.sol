@@ -22,8 +22,6 @@ contract CheckScript is Script {
             "https://ipfs.io/ipfs/QmVjZW1f4X1nibQeBWQkg5yEfcZdg8CJ73mHwDMbx93CoX"
         );
 
-        // console.logString("ssss");
         vm.stopBroadcast();
-        return th.symbol();
     }
 }
