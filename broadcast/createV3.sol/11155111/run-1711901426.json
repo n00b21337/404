@@ -1,0 +1,78 @@
+{
+  "transactions": [
+    {
+      "hash": "0xfb278ab4407c43ad108616b3fcc8099e9164c23e876f5992f5706410355c927b",
+      "transactionType": "CALL",
+      "contractName": "TopHat404",
+      "contractAddress": "0xFbdc80810255998549A301959A4F0D3beBFC89fB",
+      "function": "approve(address,uint256)",
+      "arguments": [
+        "0x1238536071E1c677A632429e3655c799b22cDA52",
+        "10000"
+      ],
+      "transaction": {
+        "type": "0x02",
+        "from": "0x59e8dc17aed975978c8ccb22ff69fc8954974359",
+        "to": "0xfbdc80810255998549a301959a4f0d3bebfc89fb",
+        "gas": "0xb22a",
+        "value": "0x0",
+        "data": "0x095ea7b30000000000000000000000001238536071e1c677a632429e3655c799b22cda520000000000000000000000000000000000000000000000000000000000002710",
+        "nonce": "0xf",
+        "accessList": []
+      },
+      "additionalContracts": [],
+      "isFixedGasLimit": false
+    },
+    {
+      "hash": "0x480d92c051c95c55f901873d5219ee570c4e0c9375ecefa53e1f8307f41a151e",
+      "transactionType": "CALL",
+      "contractName": "WETH",
+      "contractAddress": "0x7b79995e5f793A07Bc00c21412e50Ecae098E7f9",
+      "function": "approve(address,uint256)",
+      "arguments": [
+        "0x1238536071E1c677A632429e3655c799b22cDA52",
+        "1"
+      ],
+      "transaction": {
+        "type": "0x02",
+        "from": "0x59e8dc17aed975978c8ccb22ff69fc8954974359",
+        "to": "0x7b79995e5f793a07bc00c21412e50ecae098e7f9",
+        "gas": "0xf80a",
+        "value": "0x0",
+        "data": "0x095ea7b30000000000000000000000001238536071e1c677a632429e3655c799b22cda520000000000000000000000000000000000000000000000000000000000000001",
+        "nonce": "0x10",
+        "accessList": []
+      },
+      "additionalContracts": [],
+      "isFixedGasLimit": false
+    }
+  ],
+  "receipts": [],
+  "libraries": [],
+  "pending": [
+    "0xfb278ab4407c43ad108616b3fcc8099e9164c23e876f5992f5706410355c927b",
+    "0x480d92c051c95c55f901873d5219ee570c4e0c9375ecefa53e1f8307f41a151e"
+  ],
+  "returns": {
+    "liquidity": {
+      "internal_type": "uint128",
+      "value": "0"
+    },
+    "tokenId": {
+      "internal_type": "uint256",
+      "value": "0"
+    },
+    "amount1": {
+      "internal_type": "uint256",
+      "value": "0"
+    },
+    "amount0": {
+      "internal_type": "uint256",
+      "value": "0"
+    }
+  },
+  "timestamp": 1711901426,
+  "chain": 11155111,
+  "multi": false,
+  "commit": "3f9a229"
+}

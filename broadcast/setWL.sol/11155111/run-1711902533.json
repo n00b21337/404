@@ -1,0 +1,62 @@
+{
+  "transactions": [
+    {
+      "hash": "0xc8d98193111aed48dd24431037fb19b2a69c7473ec608cff7a26036c8592a4c1",
+      "transactionType": "CALL",
+      "contractName": "TopHat404",
+      "contractAddress": "0xFbdc80810255998549A301959A4F0D3beBFC89fB",
+      "function": "setWhitelist(address,bool)",
+      "arguments": [
+        "0x59e8dc17aed975978c8CCb22Ff69fC8954974359",
+        "true"
+      ],
+      "transaction": {
+        "type": "0x02",
+        "from": "0x59e8dc17aed975978c8ccb22ff69fc8954974359",
+        "to": "0xfbdc80810255998549a301959a4f0d3bebfc89fb",
+        "gas": "0x8ef3",
+        "value": "0x0",
+        "data": "0x53d6fd5900000000000000000000000059e8dc17aed975978c8ccb22ff69fc89549743590000000000000000000000000000000000000000000000000000000000000001",
+        "nonce": "0x15",
+        "accessList": []
+      },
+      "additionalContracts": [],
+      "isFixedGasLimit": false
+    },
+    {
+      "hash": "0xad8ee738b8ee24e97d39c980edd6b17d5d92741f964009dc925b3edf3e6638db",
+      "transactionType": "CALL",
+      "contractName": "UniswapV3Factory",
+      "contractAddress": "0x0227628f3F023bb0B980b67D528571c95c6DaC1c",
+      "function": "getPool(address,address,uint24)",
+      "arguments": [
+        "0x7b79995e5f793A07Bc00c21412e50Ecae098E7f9",
+        "0xFbdc80810255998549A301959A4F0D3beBFC89fB",
+        "3000"
+      ],
+      "transaction": {
+        "type": "0x02",
+        "from": "0x59e8dc17aed975978c8ccb22ff69fc8954974359",
+        "to": "0x0227628f3f023bb0b980b67d528571c95c6dac1c",
+        "gas": "0x84c1",
+        "value": "0x0",
+        "data": "0x1698ee820000000000000000000000007b79995e5f793a07bc00c21412e50ecae098e7f9000000000000000000000000fbdc80810255998549a301959a4f0d3bebfc89fb0000000000000000000000000000000000000000000000000000000000000bb8",
+        "nonce": "0x16",
+        "accessList": []
+      },
+      "additionalContracts": [],
+      "isFixedGasLimit": false
+    }
+  ],
+  "receipts": [],
+  "libraries": [],
+  "pending": [
+    "0xc8d98193111aed48dd24431037fb19b2a69c7473ec608cff7a26036c8592a4c1",
+    "0xad8ee738b8ee24e97d39c980edd6b17d5d92741f964009dc925b3edf3e6638db"
+  ],
+  "returns": {},
+  "timestamp": 1711902533,
+  "chain": 11155111,
+  "multi": false,
+  "commit": "3f9a229"
+}
