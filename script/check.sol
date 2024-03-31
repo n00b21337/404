@@ -13,10 +13,9 @@ interface ITH404 {
     function setTokenURI(string memory) external;
 }
 
-contract CheckScript is Script {
+contract Execute is Script {
     function run() external {
-        uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
-        vm.startBroadcast(deployerPrivateKey);
+        //  vm.startBroadcast();
         ITH404 th = ITH404(vm.envAddress("CONTRACT_ADDY"));
         string memory symbol = th.symbol();
         console.logString(symbol);
@@ -27,10 +26,11 @@ contract CheckScript is Script {
             "/broadcast/deploy.sol/666666666/run-latest.json"
         );
 
+        console.logString(path);
         // Tx1559[] memory transactions = readTx1559s(path);
 
         // console.log(transactions[0].contractAddress);
-        vm.stopBroadcast();
+        //   vm.stopBroadcast();
 
         //return transactions[0];
     }

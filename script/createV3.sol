@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import "forge-std/Script.sol";
 import "forge-std/console.sol";
 import "./interfaces/uniswap_v3.sol";
+import "./libraries/sqrtPricex96.sol";
 
 contract Execute is Script {
     function run()
@@ -29,9 +30,9 @@ contract Execute is Script {
 
         IERC20 newtoken = IERC20(newToken);
         IWETH weth = IWETH(WETH);
-        int24 MIN_TICK = -887272;
+        int24 MIN_TICK = -887220;
         int24 MAX_TICK = -MIN_TICK;
-        int24 TICK_SPACING = 60;
+        int24 TICK_SPACING = 60; // choose betweebn 10, 60, or 200.
         uint256 amountToAddNewToken = 10000;
         uint256 amountToAddWETH = 1;
 
@@ -39,13 +40,16 @@ contract Execute is Script {
                 nfpm
             );
 
+        uint160 sqrtPriceX96 = SqrtPricex96.calculateSqrtPriceX96(1000, 1);
+        console.log(sqrtPriceX96);
+
         // We need to create and initialize pool https://docs.uniswap.org/contracts/v3/reference/periphery/base/PoolInitializer
         // sqrtPriceX96 is directly calling https://github.com/Uniswap/v3-core/blob/d8b1c635c275d2a9450bd6a78f3fa2484fef73eb/contracts/libraries/TickMath.sol#L61C14-L61C32
         nonfungiblePositionManager.createAndInitializePoolIfNecessary(
             WETH,
             newToken,
             fee,
-            14614467034852101032872730
+            sqrtPriceX96
         );
 
         newtoken.approve(
@@ -66,7 +70,7 @@ contract Execute is Script {
                 amount0Min: 0,
                 amount1Min: 0,
                 recipient: msg.sender,
-                deadline: block.timestamp
+                deadline: block.timestamp + 60 * 20
             });
 
         (tokenId, liquidity, amount0, amount1) = nonfungiblePositionManager
