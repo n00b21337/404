@@ -20,6 +20,7 @@ contract Execute is Script {
 
         // List of factories https://github.com/Uniswap/sdk-core/blob/5365ae4cd021ab53b94b0879ec6ceb6ad3ebdce9/src/addresses.ts#L135
         // Code per https://solidity-by-example.org/defi/uniswap-v3-liquidity/
+        // UNI v3 error codes https://github.com/Uniswap/docs/blob/7d22be080cafa773b6fb38a238531211b8cade00/docs/contracts/v3/reference/error-codes.md?plain=1#L36
 
         address WETH = 0x7b79995e5f793A07Bc00c21412e50Ecae098E7f9; // change me!  WETH
         address newToken = 0xFbdc80810255998549A301959A4F0D3beBFC89fB; // change me!
@@ -38,6 +39,15 @@ contract Execute is Script {
                 nfpm
             );
 
+        // We need to create and initialize pool https://docs.uniswap.org/contracts/v3/reference/periphery/base/PoolInitializer
+        // sqrtPriceX96 is directly calling https://github.com/Uniswap/v3-core/blob/d8b1c635c275d2a9450bd6a78f3fa2484fef73eb/contracts/libraries/TickMath.sol#L61C14-L61C32
+        nonfungiblePositionManager.createAndInitializePoolIfNecessary(
+            WETH,
+            newToken,
+            fee,
+            14614467034852101032872730
+        );
+
         newtoken.approve(
             address(nonfungiblePositionManager),
             amountToAddNewToken
@@ -46,13 +56,13 @@ contract Execute is Script {
 
         INonfungiblePositionManager.MintParams
             memory params = INonfungiblePositionManager.MintParams({
-                token0: newToken,
-                token1: WETH,
+                token0: WETH,
+                token1: newToken,
                 fee: fee,
                 tickLower: (MIN_TICK / TICK_SPACING) * TICK_SPACING,
                 tickUpper: (MAX_TICK / TICK_SPACING) * TICK_SPACING,
-                amount0Desired: amountToAddNewToken,
-                amount1Desired: amountToAddWETH,
+                amount0Desired: amountToAddWETH,
+                amount1Desired: amountToAddNewToken,
                 amount0Min: 0,
                 amount1Min: 0,
                 recipient: msg.sender,

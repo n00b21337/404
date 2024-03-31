@@ -31,7 +31,7 @@ contract Execute is Script {
 
         address factory = 0x0227628f3F023bb0B980b67D528571c95c6DaC1c; // change me!
         address token0 = 0x7b79995e5f793A07Bc00c21412e50Ecae098E7f9; // change me!  WETH
-        address token1 = 0xFbdc80810255998549A301959A4F0D3beBFC89fB; // change me!
+        address token1 = vm.envAddress("CONTRACT_ADDY"); // change me!
         uint24 fee = 3000;
 
         //UNI V2 pair
@@ -55,6 +55,9 @@ contract Execute is Script {
         address pairV3 = v3.getPool(token0, token1, fee);
         th.setWhitelist(pairV3, true);
         console.log("Set WL V3 Pair", pairV3);
+
+        //WL also the address of token of token contract itself
+        th.setWhitelist(token1, true);
 
         vm.stopBroadcast();
     }

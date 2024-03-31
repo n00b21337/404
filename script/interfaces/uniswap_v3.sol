@@ -66,6 +66,13 @@ interface INonfungiblePositionManager {
     function collect(
         CollectParams calldata params
     ) external payable returns (uint256 amount0, uint256 amount1);
+
+    function createAndInitializePoolIfNecessary(
+        address token0,
+        address token1,
+        uint24 fee,
+        uint160 sqrtPriceX96
+    ) external returns (address pool);
 }
 
 interface IERC20 {

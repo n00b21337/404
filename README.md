@@ -12,7 +12,8 @@ The ERC721 implementation here is a bit non-standard, where tokens are instead b
 
 ## Setup
 
-You need to whitelist owner of the smart contract as well as the uniswap contract created by factory below
+You need to whitelist owner of the smart contract as well as the uniswap contract created by factory below.
+Maybe also the token contract itself to WL?!
 
 ## Uniswap V3
 
