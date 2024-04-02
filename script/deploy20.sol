@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.19;
+pragma solidity ^0.8.0;
 
 import {Script} from "forge-std/Script.sol";
 import {OurToken} from "../src/ERC20.sol";
+import {Meme} from "../src/Meme20UniV3Deploy.sol";
 import {console} from "forge-std/console.sol";
 
 contract DeployOurToken is Script {
@@ -11,15 +12,19 @@ contract DeployOurToken is Script {
         0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80;
     uint256 public deployerKey;
 
-    function run() external returns (OurToken) {
+    function run() external returns (Meme) {
         if (block.chainid == 31337) {
             deployerKey = DEFAULT_ANVIL_PRIVATE_KEY;
         } else {
             deployerKey = vm.envUint("PRIVATE_KEY");
         }
         vm.startBroadcast(deployerKey);
-        OurToken ourToken = new OurToken(INITIAL_SUPPLY);
+        //OurToken deployedToken = new OurToken(INITIAL_SUPPLY);
+
+        Meme deployedToken = new Meme();
+        deployedToken.addLiquidity();
+
         vm.stopBroadcast();
-        return ourToken;
+        return deployedToken;
     }
 }

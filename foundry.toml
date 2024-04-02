@@ -2,7 +2,7 @@
 src = "src"
 out = "out"
 libs = ["lib"]
-sender = '0x59e8dc17aed975978c8CCb22Ff69fC8954974359'
+sender = '0xb1C7F17Ed88189Abf269Bf68A3B2Ed83C5276aAe'
 gas_reports = ["*"]
 # solc = "0.8.19"
 fs_permissions = [{ access = "read", path = "./broadcast" }]
@@ -20,7 +20,7 @@ degen = "${DEGEN_RPC_URL}"
 [etherscan]
 sepolia = { key = "${ETHERSCAN_API_KEY}" }
 arbitrum = { key = "${ARBISCAN_API_KEY}" }
-base = { key = "${BASE_KEY}" }
+base = { key = "${BASE_API_KEY}" }
 eth = { key = "${ETHERSCAN_API_KEY}" }
 
 
