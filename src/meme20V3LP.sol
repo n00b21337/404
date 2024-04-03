@@ -55,11 +55,10 @@ interface IERC721 {
 }
 
 contract Meme is ERC20 {
-    INonfungiblePositionManager nfpm =
-        INonfungiblePositionManager(0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1); // base NFPM
-    address constant weth = 0x4200000000000000000000000000000000000006; // base WETH
+    INonfungiblePositionManager nfpm;
+    address immutable weth;
     uint supply = 1_000_000 * 10 ** decimals();
-    uint24 constant fee = 500;
+    uint24 constant fee = 3000;
     uint160 constant sqrtPriceX96 = 79228162514264337593543950336; // ~ 1:1
     int24 minTick;
     int24 maxTick;
@@ -69,7 +68,9 @@ contract Meme is ERC20 {
     uint amount0Desired;
     uint amount1Desired;
 
-    constructor() ERC20("Meme Token", "MEME") {
+    constructor(address _nfpm, address _weth) ERC20("Meme Token", "MEME") {
+        nfpm = INonfungiblePositionManager(_nfpm);
+        weth = _weth;
         _mint(address(this), supply);
         setTokens();
         pool = nfpm.createAndInitializePoolIfNecessary(
@@ -94,7 +95,7 @@ contract Meme is ERC20 {
                 amount1Desired: amount1Desired,
                 amount0Min: 0,
                 amount1Min: 0,
-                recipient: address(this),
+                recipient: address(0), // We send NFT to 0 address so that liquidity is burned
                 deadline: block.timestamp + 1200
             })
         );
@@ -125,7 +126,6 @@ contract Meme is ERC20 {
         uint256 tokenId,
         bytes calldata
     ) external returns (bytes4) {
-        IERC721(from).safeTransferFrom(address(this), address(0), tokenId);
         return IERC721Receiver.onERC721Received.selector;
     }
 }
