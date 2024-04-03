@@ -51,7 +51,11 @@ interface IERC721 {
         address from,
         address to,
         uint256 tokenId
-    ) external returns (bytes4);
+    ) external;
+
+    function transferFrom(address from, address to, uint256 tokenId) external;
+
+    function approve(address to, uint256 tokenId) external;
 }
 
 contract Meme is ERC20 {
@@ -96,7 +100,7 @@ contract Meme is ERC20 {
                 amount1Desired: amount1Desired,
                 amount0Min: 0,
                 amount1Min: 0,
-                recipient: address(this), // We send NFT to 0 address so that liquidity is burned
+                recipient: address(this),
                 deadline: block.timestamp + 1200
             })
         );
@@ -131,9 +135,11 @@ contract Meme is ERC20 {
     }
 
     function burnLP() public {
+        // We must approve the sender to be able to call burn
+        IERC721(address(nfpm)).approve(msg.sender, LPtokenID);
         IERC721(address(nfpm)).safeTransferFrom(
             address(this),
-            address(0),
+            0x000000000000000000000000000000000000dEaD,
             LPtokenID
         );
     }
