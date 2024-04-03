@@ -67,7 +67,7 @@ contract Meme is ERC20 {
     address token1;
     uint amount0Desired;
     uint amount1Desired;
-    uint LPtokenID;
+    uint public LPtokenID;
 
     constructor(address _nfpm, address _weth) ERC20("Meme Token", "MEME") {
         nfpm = INonfungiblePositionManager(_nfpm);
@@ -85,7 +85,7 @@ contract Meme is ERC20 {
     function addLiquidity() public {
         // We put all the supply here and 0 WETH
         IERC20(address(this)).approve(address(nfpm), supply);
-        nfpm.mint(
+        (LPtokenID, , , ) = nfpm.mint(
             INonfungiblePositionManager.MintParams({
                 token0: token0,
                 token1: token1,
@@ -96,7 +96,7 @@ contract Meme is ERC20 {
                 amount1Desired: amount1Desired,
                 amount0Min: 0,
                 amount1Min: 0,
-                recipient: msg.sender, // We send NFT to 0 address so that liquidity is burned
+                recipient: address(this), // We send NFT to 0 address so that liquidity is burned
                 deadline: block.timestamp + 1200
             })
         );
@@ -127,12 +127,11 @@ contract Meme is ERC20 {
         uint256 tokenId,
         bytes calldata
     ) external returns (bytes4) {
-        LPtokenID = tokenId;
         return IERC721Receiver.onERC721Received.selector;
     }
 
     function burnLP() public {
-        IERC721(address(this)).safeTransferFrom(
+        IERC721(address(nfpm)).safeTransferFrom(
             address(this),
             address(0),
             LPtokenID
