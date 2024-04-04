@@ -40,7 +40,7 @@ contract Execute is Script {
                 nfpm
             );
 
-        uint160 sqrtPriceX96 = SqrtPricex96.calculateSqrtPriceX96(1000, 1);
+        uint160 sqrtPriceX96 = SqrtPricex96.calculateSqrtPriceX96(1000, 1); // with sqrt we set the first tick https://github.com/Uniswap/v3-core/blob/d8b1c635c275d2a9450bd6a78f3fa2484fef73eb/contracts/UniswapV3Pool.sol#L271
         console.log(sqrtPriceX96);
 
         // We need to create and initialize pool https://docs.uniswap.org/contracts/v3/reference/periphery/base/PoolInitializer

@@ -63,8 +63,9 @@ contract Meme is ERC20, Ownable {
     INonfungiblePositionManager nfpm;
     address immutable weth;
     uint supply = 1_000_000 * 10 ** decimals();
+    uint supplyWeth = 0 * 10 ** decimals();
     uint24 constant fee = 3000;
-    uint160 constant sqrtPriceX96 = 79228162514264337593543950336; // ~ 1:1
+    uint160 constant sqrtPriceX96 = 4572583668;
     int24 MIN_TICK = -887220;
     int24 MAX_TICK = -MIN_TICK;
     int24 TICK_SPACING = 60;
@@ -95,8 +96,10 @@ contract Meme is ERC20, Ownable {
     }
 
     function addLiquidity() public {
-        // We put all the supply here and 0 WETH
+        // We put all the supply here and 0 or some WETH
         IERC20(address(this)).approve(address(nfpm), supply);
+        IERC20(weth).approve(address(nfpm), supplyWeth);
+
         (LPtokenID, , , ) = nfpm.mint(
             INonfungiblePositionManager.MintParams({
                 token0: token0,
@@ -108,7 +111,7 @@ contract Meme is ERC20, Ownable {
                 amount1Desired: amount1Desired,
                 amount0Min: 0,
                 amount1Min: 0,
-                recipient: address(this),
+                recipient: msg.sender,
                 deadline: block.timestamp + 1200
             })
         );
@@ -120,16 +123,16 @@ contract Meme is ERC20, Ownable {
             token0 = address(this);
             token1 = weth;
             amount0Desired = supply;
-            amount1Desired = 0;
-            minTick = 0;
+            amount1Desired = supplyWeth;
+            minTick = (MIN_TICK / TICK_SPACING) * TICK_SPACING;
             maxTick = (MAX_TICK / TICK_SPACING) * TICK_SPACING;
         } else {
             token0 = weth;
             token1 = address(this);
-            amount0Desired = 0;
+            amount0Desired = supplyWeth;
             amount1Desired = supply;
             minTick = (MIN_TICK / TICK_SPACING) * TICK_SPACING;
-            maxTick = 0;
+            maxTick = (MAX_TICK / TICK_SPACING) * TICK_SPACING;
         }
     }
 
