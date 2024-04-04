@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import "../script/libraries/TickMath.sol";
 
 interface INonfungiblePositionManager {
     struct MintParams {
@@ -65,9 +66,9 @@ contract Meme is ERC20, Ownable {
     uint supply = 1_000_000 * 10 ** decimals();
     uint supplyWeth = 1 * 10 ** decimals();
     uint24 constant fee = 3000;
-    uint160 constant sqrtPriceX96 = 79228162514264337593543950336;
-    int24 MIN_TICK = 0;
-    int24 MAX_TICK = 887220;
+    uint160 sqrtPriceX96 = TickMath.getSqrtRatioAtTick(-887272);
+    int24 MIN_TICK = -887272;
+    int24 MAX_TICK = 887272;
     int24 TICK_SPACING = 60;
     int24 minTick;
     int24 maxTick;
@@ -88,6 +89,7 @@ contract Meme is ERC20, Ownable {
         nfpm = INonfungiblePositionManager(_nfpm);
         weth = _weth;
         _mint(address(this), supply);
+        // TODO should also probably set sqrtPriceX96 depending on which token is first
         setTokens();
         pool = nfpm.createAndInitializePoolIfNecessary(
             token0,
@@ -98,7 +100,8 @@ contract Meme is ERC20, Ownable {
     }
 
     function addLiquidity() public {
-        // We put all the tolken supply here and 0 or some WETH
+        // We put all the token supply here and 0 or some WETH
+        // TODO Need to send some weth to the contract first, maybe this all is easier to do with local wallet
         IERC20(address(this)).approve(address(nfpm), supply);
         IERC20(address(weth)).approve(address(nfpm), supplyWeth);
 
@@ -123,16 +126,18 @@ contract Meme is ERC20, Ownable {
         // Change ordering of tokens so that token0 is smaller hex
         if (address(this) < weth) {
             token0 = address(this);
-            token1 = weth;
+            token1 = address(weth);
             amount0Desired = supply;
             amount1Desired = supplyWeth;
+            sqrtPriceX96 = (1000000 / 1) * 2 ** 96;
             minTick = (MIN_TICK / TICK_SPACING) * TICK_SPACING;
             maxTick = (MAX_TICK / TICK_SPACING) * TICK_SPACING;
         } else {
-            token0 = weth;
+            token0 = address(weth);
             token1 = address(this);
             amount0Desired = supplyWeth;
             amount1Desired = supply;
+            sqrtPriceX96 = uint160(1 * 2 ** 96) / 1e6;
             minTick = (MIN_TICK / TICK_SPACING) * TICK_SPACING;
             maxTick = (MAX_TICK / TICK_SPACING) * TICK_SPACING;
         }

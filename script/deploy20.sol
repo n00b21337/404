@@ -42,13 +42,14 @@ contract DeployOurToken is Script {
             "MEME ",
             Common.uintToString(vm.getNonce(msg.sender))
         );
+        console.log(vm.getNonce(msg.sender));
         //OurToken deployedToken = new OurToken(INITIAL_SUPPLY);
 
         Meme deployedToken = new Meme(nfpm, weth, msg.sender, name, ticker);
         deployedToken.addLiquidity();
         // deployedToken.burnLP();
-        // SQRT for 0 is 79228162514264337593543950336
-        console.log(TickMath.getSqrtRatioAtTick(0));
+        // SQRT for 0 is 79228162514264337593543950336  which is also  2^96 https://docs.uniswap.org/contracts/v4/concepts/managing-positions
+        //console.log(TickMath.getSqrtRatioAtTick(0));
 
         vm.stopBroadcast();
         return deployedToken;
