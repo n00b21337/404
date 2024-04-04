@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 interface INonfungiblePositionManager {
     struct MintParams {
@@ -58,12 +59,15 @@ interface IERC721 {
     function approve(address to, uint256 tokenId) external;
 }
 
-contract Meme is ERC20 {
+contract Meme is ERC20, Ownable {
     INonfungiblePositionManager nfpm;
     address immutable weth;
     uint supply = 1_000_000 * 10 ** decimals();
-    uint24 constant fee = 500;
+    uint24 constant fee = 3000;
     uint160 constant sqrtPriceX96 = 79228162514264337593543950336; // ~ 1:1
+    int24 MIN_TICK = -887220;
+    int24 MAX_TICK = -MIN_TICK;
+    int24 TICK_SPACING = 60;
     int24 minTick;
     int24 maxTick;
     address public pool;
@@ -73,7 +77,11 @@ contract Meme is ERC20 {
     uint amount1Desired;
     uint public LPtokenID;
 
-    constructor(address _nfpm, address _weth) ERC20("Meme Token", "MEME") {
+    constructor(
+        address _nfpm,
+        address _weth,
+        address _owner
+    ) ERC20("Meme Token", "MEME") Ownable(_owner) {
         nfpm = INonfungiblePositionManager(_nfpm);
         weth = _weth;
         _mint(address(this), supply);
@@ -114,13 +122,13 @@ contract Meme is ERC20 {
             amount0Desired = supply;
             amount1Desired = 0;
             minTick = 0;
-            maxTick = 887270;
+            maxTick = (MAX_TICK / TICK_SPACING) * TICK_SPACING;
         } else {
             token0 = weth;
             token1 = address(this);
             amount0Desired = 0;
             amount1Desired = supply;
-            minTick = -887270;
+            minTick = (MIN_TICK / TICK_SPACING) * TICK_SPACING;
             maxTick = 0;
         }
     }
@@ -134,7 +142,7 @@ contract Meme is ERC20 {
         return IERC721Receiver.onERC721Received.selector;
     }
 
-    function burnLP() public {
+    function burnLP() public onlyOwner {
         // We must approve the sender to be able to call burn
         IERC721(address(nfpm)).approve(msg.sender, LPtokenID);
         IERC721(address(nfpm)).safeTransferFrom(

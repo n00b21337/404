@@ -26,13 +26,13 @@ contract Execute is Script {
         address WETH = 0x7b79995e5f793A07Bc00c21412e50Ecae098E7f9; // change me!  WETH
         address newToken = 0xFbdc80810255998549A301959A4F0D3beBFC89fB; // change me!
         address nfpm = 0x1238536071E1c677A632429e3655c799b22cDA52; // change me!
-        uint24 fee = 3000;
+        uint24 fee = 3000; // 100 is 0.01%, 500 is 0.05%, 3000 is 0.3%, 10000 is 1%
 
         IERC20 newtoken = IERC20(newToken);
         IWETH weth = IWETH(WETH);
         int24 MIN_TICK = -887220;
         int24 MAX_TICK = -MIN_TICK;
-        int24 TICK_SPACING = 60; // choose betweebn 10, 60, or 200.
+        int24 TICK_SPACING = 60; // 10 for 500, 60 for 3000 and 200 for 10000, needs to match fee, meaning to be divisible by fee https://github.com/Uniswap/v3-core/blob/d8b1c635c275d2a9450bd6a78f3fa2484fef73eb/contracts/UniswapV3Factory.sol#L26
         uint256 amountToAddNewToken = 10000;
         uint256 amountToAddWETH = 1;
 

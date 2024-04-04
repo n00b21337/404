@@ -34,7 +34,7 @@ contract DeployOurToken is Script {
         vm.startBroadcast(deployerKey);
         //OurToken deployedToken = new OurToken(INITIAL_SUPPLY);
 
-        Meme deployedToken = new Meme(nfpm, weth);
+        Meme deployedToken = new Meme(nfpm, weth, msg.sender);
         deployedToken.addLiquidity();
         deployedToken.burnLP();
 
