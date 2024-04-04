@@ -63,11 +63,11 @@ contract Meme is ERC20, Ownable {
     INonfungiblePositionManager nfpm;
     address immutable weth;
     uint supply = 1_000_000 * 10 ** decimals();
-    uint supplyWeth = 0 * 10 ** decimals();
+    uint supplyWeth = 1 * 10 ** decimals();
     uint24 constant fee = 3000;
-    uint160 constant sqrtPriceX96 = 4572583668;
-    int24 MIN_TICK = -887220;
-    int24 MAX_TICK = -MIN_TICK;
+    uint160 constant sqrtPriceX96 = 79228162514264337593543950336;
+    int24 MIN_TICK = 0;
+    int24 MAX_TICK = 887220;
     int24 TICK_SPACING = 60;
     int24 minTick;
     int24 maxTick;
@@ -81,8 +81,10 @@ contract Meme is ERC20, Ownable {
     constructor(
         address _nfpm,
         address _weth,
-        address _owner
-    ) ERC20("Meme Token", "MEME") Ownable(_owner) {
+        address _owner,
+        string memory _name,
+        string memory _ticker
+    ) ERC20(_name, _ticker) Ownable(_owner) {
         nfpm = INonfungiblePositionManager(_nfpm);
         weth = _weth;
         _mint(address(this), supply);
@@ -96,9 +98,9 @@ contract Meme is ERC20, Ownable {
     }
 
     function addLiquidity() public {
-        // We put all the supply here and 0 or some WETH
+        // We put all the tolken supply here and 0 or some WETH
         IERC20(address(this)).approve(address(nfpm), supply);
-        IERC20(weth).approve(address(nfpm), supplyWeth);
+        IERC20(address(weth)).approve(address(nfpm), supplyWeth);
 
         (LPtokenID, , , ) = nfpm.mint(
             INonfungiblePositionManager.MintParams({

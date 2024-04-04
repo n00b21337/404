@@ -6,6 +6,7 @@ import {OurToken} from "../src/ERC20.sol";
 import {Meme} from "../src/meme20V3LP.sol";
 import {console} from "forge-std/console.sol";
 import "./libraries/TickMath.sol";
+import "./libraries/common.sol";
 
 contract DeployOurToken is Script {
     uint256 public constant INITIAL_SUPPLY = 1_000_000 ether; // 1 million tokens with 18 decimal places
@@ -33,13 +34,21 @@ contract DeployOurToken is Script {
         }
 
         vm.startBroadcast(deployerKey);
+        string memory name = string.concat(
+            "Meme Token ",
+            Common.uintToString(vm.getNonce(msg.sender))
+        );
+        string memory ticker = string.concat(
+            "MEME ",
+            Common.uintToString(vm.getNonce(msg.sender))
+        );
         //OurToken deployedToken = new OurToken(INITIAL_SUPPLY);
 
-        Meme deployedToken = new Meme(nfpm, weth, msg.sender);
+        Meme deployedToken = new Meme(nfpm, weth, msg.sender, name, ticker);
         deployedToken.addLiquidity();
         // deployedToken.burnLP();
-
-        console.log(TickMath.getSqrtRatioAtTick(-886020));
+        // SQRT for 0 is 79228162514264337593543950336
+        console.log(TickMath.getSqrtRatioAtTick(0));
 
         vm.stopBroadcast();
         return deployedToken;
