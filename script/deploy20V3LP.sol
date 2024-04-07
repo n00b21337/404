@@ -2,17 +2,18 @@
 pragma solidity ^0.8.0;
 
 import {Script} from "forge-std/Script.sol";
-import {Meme} from "../src/meme20.sol";
+import {Meme} from "../src/meme20V3LP.sol";
 import {console} from "forge-std/console.sol";
+import "./libraries/TickMath.sol";
 import "./libraries/common.sol";
 
 contract DeployOurToken is Script {
+    uint256 public constant INITIAL_SUPPLY = 1_000_000 ether; // 1 million tokens with 18 decimal places
     uint256 public DEFAULT_ANVIL_PRIVATE_KEY =
         0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80;
     uint256 public deployerKey;
     address public nfpm;
     address public weth;
-    uint256 public constant TOKEN_SUPPLY = 1_000_000 ether; // 1 million tokens with 18 decimal places
 
     function run() external returns (Meme) {
         if (block.chainid == 31337) {
@@ -40,9 +41,15 @@ contract DeployOurToken is Script {
             "MEME ",
             Common.uintToString(vm.getNonce(msg.sender))
         );
+        console.log(vm.getNonce(msg.sender));
+        //OurToken deployedToken = new OurToken(INITIAL_SUPPLY);
 
-        Meme deployedToken = new Meme(name, ticker, TOKEN_SUPPLY);
-        console.log("Meme ", vm.getNonce(msg.sender));
+        Meme deployedToken = new Meme(nfpm, weth, msg.sender, name, ticker);
+        deployedToken.addLiquidity();
+        // deployedToken.burnLP();
+        // SQRT for 0 is 79228162514264337593543950336  which is also  2^96 https://docs.uniswap.org/contracts/v4/concepts/managing-positions
+        //console.log(TickMath.getSqrtRatioAtTick(0));
+
         vm.stopBroadcast();
         return deployedToken;
     }

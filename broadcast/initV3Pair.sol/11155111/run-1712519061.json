@@ -1,0 +1,66 @@
+{
+  "transactions": [
+    {
+      "hash": "0xe1d42881363b0300e2282fbc8ac4fc586a11e2c0033f314c7f2776c84a20ee02",
+      "transactionType": "CALL",
+      "contractName": "Meme",
+      "contractAddress": "0x096992e8D27d0cA2a00C335400e666d1bBe12E8E",
+      "function": "approve(address,uint256)",
+      "arguments": [
+        "0x1238536071E1c677A632429e3655c799b22cDA52",
+        "1000000000000000000000000"
+      ],
+      "transaction": {
+        "type": "0x02",
+        "from": "0xb1c7f17ed88189abf269bf68a3b2ed83c5276aae",
+        "to": "0x096992e8d27d0ca2a00c335400e666d1bbe12e8e",
+        "gas": "0xf817",
+        "value": "0x0",
+        "data": "0x095ea7b30000000000000000000000001238536071e1c677a632429e3655c799b22cda5200000000000000000000000000000000000000000000d3c21bcecceda1000000",
+        "nonce": "0xd8",
+        "accessList": []
+      },
+      "additionalContracts": [],
+      "isFixedGasLimit": false
+    },
+    {
+      "hash": "0xbde6f2b4c4f23bdd37a95040a7171ade8599bc5459607d53976521e82d47ca3f",
+      "transactionType": "CALL",
+      "contractName": "WETH9",
+      "contractAddress": "0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14",
+      "function": "approve(address,uint256)",
+      "arguments": [
+        "0x1238536071E1c677A632429e3655c799b22cDA52",
+        "1000000000000000000"
+      ],
+      "transaction": {
+        "type": "0x02",
+        "from": "0xb1c7f17ed88189abf269bf68a3b2ed83c5276aae",
+        "to": "0xfff9976782d46cc05630d1f6ebab18b2324d6b14",
+        "gas": "0xf879",
+        "value": "0x0",
+        "data": "0x095ea7b30000000000000000000000001238536071e1c677a632429e3655c799b22cda520000000000000000000000000000000000000000000000000de0b6b3a7640000",
+        "nonce": "0xd9",
+        "accessList": []
+      },
+      "additionalContracts": [],
+      "isFixedGasLimit": false
+    }
+  ],
+  "receipts": [],
+  "libraries": [],
+  "pending": [
+    "0xe1d42881363b0300e2282fbc8ac4fc586a11e2c0033f314c7f2776c84a20ee02",
+    "0xbde6f2b4c4f23bdd37a95040a7171ade8599bc5459607d53976521e82d47ca3f"
+  ],
+  "returns": {
+    "0": {
+      "internal_type": "contract Meme",
+      "value": "0x096992e8D27d0cA2a00C335400e666d1bBe12E8E"
+    }
+  },
+  "timestamp": 1712519061,
+  "chain": 11155111,
+  "multi": false,
+  "commit": "f4d858d"
+}

@@ -7,7 +7,7 @@ library SqrtPricex96 {
     function calculateSqrtPriceX96(
         uint256 tokenAmount,
         uint256 wethAmount
-    ) public pure returns (uint160 sqrtPriceX96) {
+    ) internal pure returns (uint160 sqrtPriceX96) {
         // Ensure non-zero values to prevent division by zero
         require(
             tokenAmount > 0 && wethAmount > 0,
@@ -44,7 +44,7 @@ library SqrtPricex96 {
     // This function is to illustrate how you would reverse the calculation to find the price
     function calculatePriceFromSqrtPriceX96(
         uint256 sqrtPriceX96
-    ) public pure returns (uint256 price) {
+    ) internal pure returns (uint256 price) {
         uint256 squaredPrice = uint256(sqrtPriceX96) ** 2;
         uint256 scaledPrice = squaredPrice / Q96 ** 2;
 

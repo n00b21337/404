@@ -4,13 +4,15 @@ pragma solidity ^0.8.0;
 library Common {
     function bytesToAddress(
         bytes memory bys
-    ) public pure returns (address addr) {
+    ) internal pure returns (address addr) {
         assembly {
             addr := mload(add(bys, 32))
         }
     }
 
-    function uintToString(uint256 _value) public pure returns (string memory) {
+    function uintToString(
+        uint256 _value
+    ) internal pure returns (string memory) {
         // If the value is 0, return "0" directly
         if (_value == 0) {
             return "0";
