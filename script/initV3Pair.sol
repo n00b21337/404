@@ -76,9 +76,11 @@ contract InitPairDeployLiquidity is Script {
     //  uint160 sqrtPriceX96 = TickMath.getSqrtRatioAtTick(-131231);
     uint160 sqrtPriceX96 =
         SqrtPricex96.calculateSqrtPriceX96(TOKEN_SUPPLY, WETH_SUPPLY);
+    int24 startingTick = TickMath.getTickAtSqrtRatio(sqrtPriceX96);
 
     uint24 fee = 3000;
     int24 TICK_SPACING = 60;
+    // We probably usefull range in all cases, so its the same for all cases
     int24 minTick = (MIN_TICK / TICK_SPACING) * TICK_SPACING;
     int24 maxTick = (MAX_TICK / TICK_SPACING) * TICK_SPACING;
 
@@ -124,7 +126,9 @@ contract InitPairDeployLiquidity is Script {
         // Fetch latest deployed Meme token from deploy20.sol
         fetchLatest();
         deployedMeme = Meme(deployedAddress);
-        console.log(deployedAddress);
+
+        console.log("Starting Tick ");
+        console.logInt(startingTick);
 
         // Approve token and weth from EOA to be used by nfpm
         IERC20(address(deployedAddress)).approve(address(nfpm), TOKEN_SUPPLY);
@@ -215,6 +219,7 @@ contract InitPairDeployLiquidity is Script {
             token1 = address(deployedAddress);
             amount0Desired = WETH_SUPPLY;
             amount1Desired = TOKEN_SUPPLY;
+            console.log("WETH address is bigger!!!");
         }
     }
 }
