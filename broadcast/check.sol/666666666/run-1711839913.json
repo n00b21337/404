@@ -1,0 +1,39 @@
+{
+  "transactions": [
+    {
+      "hash": "0x4426b8ec277d367d87c54c1ee0f40d82f86bba5ae6b76b2b4985eb30d1e331e1",
+      "transactionType": "CALL",
+      "contractName": null,
+      "contractAddress": "0xc5D38Bcc8E0B8a7C61bef5b1cc8945118a0Fd712",
+      "function": "symbol()",
+      "arguments": [],
+      "transaction": {
+        "type": "0x02",
+        "from": "0x59e8dc17aed975978c8ccb22ff69fc8954974359",
+        "to": "0xc5d38bcc8e0b8a7c61bef5b1cc8945118a0fd712",
+        "gas": "0x82fd",
+        "value": "0x0",
+        "data": "0x95d89b41",
+        "nonce": "0x6",
+        "accessList": []
+      },
+      "additionalContracts": [],
+      "isFixedGasLimit": false
+    }
+  ],
+  "receipts": [],
+  "libraries": [],
+  "pending": [
+    "0x4426b8ec277d367d87c54c1ee0f40d82f86bba5ae6b76b2b4985eb30d1e331e1"
+  ],
+  "returns": {
+    "0": {
+      "internal_type": "struct StdCheatsSafe.Tx1559",
+      "value": "([], 0x0000000000000000000000000000000000000000, \"\", \"\", 0x0000000000000000000000000000000000000000000000000000000000000000, ([], 0x, 0x0000000000000000000000000000000000000000, 0, 0, 0x0000000000000000000000000000000000000000, 0, 0), \"\")"
+    }
+  },
+  "timestamp": 1711839913,
+  "chain": 666666666,
+  "multi": false,
+  "commit": "5721a27"
+}
