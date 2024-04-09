@@ -4,7 +4,8 @@ pragma solidity ^0.8.0;
 import {Script} from "forge-std/Script.sol";
 import {Meme} from "../src/meme20.sol";
 import {console} from "forge-std/console.sol";
-import "./libraries/TickMath.sol";
+import "./libraries/tickMath.sol";
+import "./libraries/sqrtPricex96.sol";
 
 import "forge-std/Script.sol";
 import "forge-std/console.sol";
@@ -72,7 +73,9 @@ contract InitPairDeployLiquidity is Script {
     uint256 public constant TOKEN_SUPPLY = 1_000_000 ether; // 1 million tokens with 18 decimal places
     int24 MIN_TICK = -887272;
     int24 MAX_TICK = 887272;
-    uint160 sqrtPriceX96 = TickMath.getSqrtRatioAtTick(-13787);
+    //  uint160 sqrtPriceX96 = TickMath.getSqrtRatioAtTick(-131231);
+    uint160 sqrtPriceX96 =
+        SqrtPricex96.calculateSqrtPriceX96(TOKEN_SUPPLY, WETH_SUPPLY);
 
     uint24 fee = 3000;
     int24 TICK_SPACING = 60;
@@ -90,52 +93,6 @@ contract InitPairDeployLiquidity is Script {
     uint amount0Desired;
     uint amount1Desired;
     uint public LPtokenID;
-
-    function fetchLatest() public {
-        string memory root = vm.projectRoot();
-        uint256 bid = block.chainid;
-        string memory path = string.concat(
-            root,
-            "/broadcast/deploy20.sol/",
-            Common.uintToString(bid),
-            "/run-latest.json"
-        );
-
-        string memory json = vm.readFile(path);
-
-        // Contract name will be saved only if -vvvv was used
-        bytes memory contractName = stdJson.parseRaw(
-            json,
-            ".transactions[0].contractName"
-        );
-        bytes memory contractAddress = stdJson.parseRaw(
-            json,
-            ".transactions[0].contractAddress"
-        );
-
-        // bytes memory transactionHash = stdJson.parseRaw(
-        //     json,
-        //     ".receipts[0].transactionHash"
-        // );
-
-        // Set current latest deployed meme address
-        deployedAddress = Common.bytesToAddress(contractAddress);
-    }
-
-    function reorderTokens() private {
-        // Change ordering of tokens so that token0 is smaller hex
-        if (address(this) < weth) {
-            token0 = address(deployedAddress);
-            token1 = address(weth);
-            amount0Desired = TOKEN_SUPPLY;
-            amount1Desired = WETH_SUPPLY;
-        } else {
-            token0 = address(weth);
-            token1 = address(deployedAddress);
-            amount0Desired = WETH_SUPPLY;
-            amount1Desired = TOKEN_SUPPLY;
-        }
-    }
 
     function run() external returns (Meme) {
         if (block.chainid == 31337) {
@@ -162,6 +119,7 @@ contract InitPairDeployLiquidity is Script {
 
         vm.startBroadcast(deployerKey);
         uint nonceForToken = vm.getNonce(msg.sender);
+        console.log("Deployed Meme ", nonceForToken - 1);
 
         // Fetch latest deployed Meme token from deploy20.sol
         fetchLatest();
@@ -170,6 +128,7 @@ contract InitPairDeployLiquidity is Script {
 
         // Approve token and weth from EOA to be used by nfpm
         IERC20(address(deployedAddress)).approve(address(nfpm), TOKEN_SUPPLY);
+        // TODO make a checker of ballance of ETH and wrap to weth if not enough
         IERC20(address(weth)).approve(address(nfpm), WETH_SUPPLY);
 
         // Init pool
@@ -209,8 +168,53 @@ contract InitPairDeployLiquidity is Script {
         // SQRT for 0 is 79228162514264337593543950336  which is also  2^96 https://docs.uniswap.org/contracts/v4/concepts/managing-positions
         //console.log(TickMath.getSqrtRatioAtTick(0));
 
-        console.log("Deployed Meme ", nonceForToken);
         vm.stopBroadcast();
         return deployedMeme;
+    }
+
+    function fetchLatest() public {
+        string memory root = vm.projectRoot();
+        uint256 bid = block.chainid;
+        string memory path = string.concat(
+            root,
+            "/broadcast/deploy20.sol/",
+            Common.uintToString(bid),
+            "/run-latest.json"
+        );
+
+        string memory json = vm.readFile(path);
+
+        // Contract name will be saved only if -vvvv was used
+        // bytes memory contractName = stdJson.parseRaw(
+        //     json,
+        //     ".transactions[0].contractName"
+        // );
+        bytes memory contractAddress = stdJson.parseRaw(
+            json,
+            ".transactions[0].contractAddress"
+        );
+
+        // bytes memory transactionHash = stdJson.parseRaw(
+        //     json,
+        //     ".receipts[0].transactionHash"
+        // );
+
+        // Set current latest deployed meme address
+        deployedAddress = Common.bytesToAddress(contractAddress);
+    }
+
+    function reorderTokens() private {
+        // Change ordering of tokens so that token0 is smaller hex
+        if (address(this) < weth) {
+            token0 = address(deployedAddress);
+            token1 = address(weth);
+            amount0Desired = TOKEN_SUPPLY;
+            amount1Desired = WETH_SUPPLY;
+        } else {
+            token0 = address(weth);
+            token1 = address(deployedAddress);
+            amount0Desired = WETH_SUPPLY;
+            amount1Desired = TOKEN_SUPPLY;
+        }
     }
 }

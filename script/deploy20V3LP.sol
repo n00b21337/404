@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {Script} from "forge-std/Script.sol";
 import {Meme} from "../src/meme20V3LP.sol";
 import {console} from "forge-std/console.sol";
-import "./libraries/TickMath.sol";
+import "./libraries/tickMath.sol";
 import "./libraries/common.sol";
 
 contract DeployOurToken is Script {
