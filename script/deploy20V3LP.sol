@@ -7,6 +7,9 @@ import {console} from "forge-std/console.sol";
 import "./libraries/tickMath.sol";
 import "./libraries/common.sol";
 
+// Uses meme20V3LP contract  where there is fully deployed LP and we just create token with this, not the most practical way to make token
+// should be deprecated and rather use token creation separation and LP and Init separation in contracts and deployments
+
 contract DeployOurToken is Script {
     uint256 public constant INITIAL_SUPPLY = 1_000_000 ether; // 1 million tokens with 18 decimal places
     uint256 public DEFAULT_ANVIL_PRIVATE_KEY =
