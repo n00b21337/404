@@ -4,7 +4,7 @@ out = "out"
 libs = ["lib"]
 sender = '0xb1C7F17Ed88189Abf269Bf68A3B2Ed83C5276aAe'
 gas_reports = ["*"]
-# solc = "0.8.19"
+solc = "0.8.23"
 fs_permissions = [{ access = "read", path = "./broadcast" }]
 via_ir = true
 

@@ -72,7 +72,7 @@ contract InitPairDeployLiquidity is Script {
     uint256 public deployerKey;
 
     // Set valus for pool
-    uint256 public constant WETH_SUPPLY = 1 ether; // 1 tokens with 18 decimal places
+    uint256 public constant WETH_SUPPLY = 1e15 wei; //  Denotes 0.001 ether, e18 is 1 ether
     uint256 public constant TOKEN_SUPPLY = 1_000_000 ether; // 1 million tokens with 18 decimal places
 
     // Use proper addresses from used chain https://docs.uniswap.org/contracts/v2/reference/smart-contracts/v2-deployments
@@ -95,7 +95,7 @@ contract InitPairDeployLiquidity is Script {
         } else if (block.chainid == 8453) {
             deployerKey = vm.envUint("PRIVATE_KEY");
             FACTORY = 0x8909Dc15e40173Ff4699343b6eB8132c65e18eC6;
-            ROUTER = 0x4752ba5dbc23f44d87826276bf6fd6b1c372ad24;
+            ROUTER = 0x4752ba5DBc23f44D87826276BF6Fd6b1C372aD24;
             WETH = 0x4200000000000000000000000000000000000006;
         } else if (block.chainid == 11155111) {
             // deployerKey = vm.envUint("PRIVATE_KEY");
@@ -141,7 +141,7 @@ contract InitPairDeployLiquidity is Script {
                 1,
                 1,
                 msg.sender,
-                block.timestamp
+                block.timestamp + 1200
             );
 
         vm.stopBroadcast();

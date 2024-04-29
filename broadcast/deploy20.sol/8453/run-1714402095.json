@@ -20,49 +20,18 @@
       "isFixedGasLimit": false
     }
   ],
-  "receipts": [
-    {
-      "transactionHash": "0x4e8a322178efff848d52f2b09f1b8875c28f6aa542d2bac6eca3b515ceb607cc",
-      "transactionIndex": "0x3",
-      "blockHash": "0x02b069385b3e4ca6397632e40f6027eb30cd02f711e85c04cc8521f682c89c11",
-      "blockNumber": "0xd2ab27",
-      "from": "0xb1C7F17Ed88189Abf269Bf68A3B2Ed83C5276aAe",
-      "to": null,
-      "cumulativeGasUsed": "0xd7984",
-      "gasUsed": "0x88e4b",
-      "contractAddress": "0x07456430a9878626ba42d4A26D5AfDa0A0Ca9D26",
-      "logs": [
-        {
-          "address": "0x07456430a9878626ba42d4A26D5AfDa0A0Ca9D26",
-          "topics": [
-            "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
-            "0x0000000000000000000000000000000000000000000000000000000000000000",
-            "0x000000000000000000000000b1c7f17ed88189abf269bf68a3b2ed83c5276aae"
-          ],
-          "data": "0x00000000000000000000000000000000000000000000d3c21bcecceda1000000",
-          "blockHash": "0x02b069385b3e4ca6397632e40f6027eb30cd02f711e85c04cc8521f682c89c11",
-          "blockNumber": "0xd2ab27",
-          "transactionHash": "0x4e8a322178efff848d52f2b09f1b8875c28f6aa542d2bac6eca3b515ceb607cc",
-          "transactionIndex": "0x3",
-          "logIndex": "0x10",
-          "removed": false
-        }
-      ],
-      "status": "0x1",
-      "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000020000000000000000000800000000010000000000000010002000000000040000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000002000000000",
-      "type": "0x2",
-      "effectiveGasPrice": "0xbe52567a"
-    }
-  ],
+  "receipts": [],
   "libraries": [],
-  "pending": [],
+  "pending": [
+    "0x4e8a322178efff848d52f2b09f1b8875c28f6aa542d2bac6eca3b515ceb607cc"
+  ],
   "returns": {
     "0": {
       "internal_type": "contract Meme",
       "value": "0x07456430a9878626ba42d4A26D5AfDa0A0Ca9D26"
     }
   },
-  "timestamp": 1714402101,
+  "timestamp": 1714402095,
   "chain": 8453,
   "multi": false,
   "commit": "11a7a8f"
